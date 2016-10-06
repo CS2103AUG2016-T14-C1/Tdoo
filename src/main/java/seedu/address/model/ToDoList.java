@@ -1,4 +1,4 @@
-package seedu.ToDoList.model;
+package seedu.todoList.model;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Person;
