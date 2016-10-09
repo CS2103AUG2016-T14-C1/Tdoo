@@ -18,10 +18,7 @@ public class XmlAdaptedTask {
     
     @XmlElement(required = true)
     private String Todo;
-
-    @XmlElement
-    private List<XmlAdaptedTag> tagged = new ArrayList<>();
-
+    
     /**
      * No-arg constructor for JAXB use.
      */

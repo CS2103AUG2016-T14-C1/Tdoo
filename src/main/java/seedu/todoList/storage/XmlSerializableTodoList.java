@@ -5,8 +5,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import seedu.todoList.commons.exceptions.IllegalValueException;
 import seedu.todoList.model.ReadOnlyTodoList;
-import seedu.todoList.model.tag.Tag;
-import seedu.todoList.model.tag.UniqueTagList;
 import seedu.todoList.model.task.ReadOnlyTask;
 import seedu.todoList.model.task.UniqueTaskList;
 
@@ -23,12 +21,10 @@ public class XmlSerializableTodoList implements ReadOnlyTodoList {
 
     @XmlElement
     private List<XmlAdaptedTask> tasks;
-    @XmlElement
-    private List<Tag> tags;
+
 
     {
         tasks = new ArrayList<>();
-        tags = new ArrayList<>();
     }
 
     /**
@@ -41,18 +37,6 @@ public class XmlSerializableTodoList implements ReadOnlyTodoList {
      */
     public XmlSerializableTodoList(ReadOnlyTodoList src) {
         tasks.addAll(src.gettaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
-        tags = src.getTagList();
-    }
-
-    @Override
-    public UniqueTagList getUniqueTagList() {
-        try {
-            return new UniqueTagList(tags);
-        } catch (UniqueTagList.DuplicateTagException e) {
-            //TODO: better error handling
-            e.printStackTrace();
-            return null;
-        }
     }
 
     @Override
@@ -80,10 +64,4 @@ public class XmlSerializableTodoList implements ReadOnlyTodoList {
             }
         }).collect(Collectors.toCollection(ArrayList::new));
     }
-
-    @Override
-    public List<Tag> getTagList() {
-        return Collections.unmodifiableList(tags);
-    }
-
 }
