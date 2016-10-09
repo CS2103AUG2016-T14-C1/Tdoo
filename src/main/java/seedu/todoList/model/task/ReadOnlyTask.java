@@ -8,7 +8,6 @@ import seedu.todoList.model.tag.UniqueTagList;
  */
 public interface ReadOnlyTask {
 
-    Name getName();
     Todo getTodo();
     StartTime getStartTime();
     EndTime getEndTime();
@@ -19,8 +18,7 @@ public interface ReadOnlyTask {
     default boolean isSameStateAs(ReadOnlyTask other) {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
-                && other.getName().equals(this.getName()) // state checks here onwards
-                && other.getTodo().equals(this.getTodo()));
+                && other.getTodo().equals(this.getTodo()));// state checks here onwards
     }
 
     /**
@@ -28,8 +26,7 @@ public interface ReadOnlyTask {
      */
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
-                .append(" Todo: ")
+        builder.append(" Todo: ")
                 .append(getTodo());
         return builder.toString();
     }

@@ -4,8 +4,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.todoList.commons.exceptions.IllegalValueException;
-import seedu.todoList.model.tag.Tag;
-import seedu.todoList.model.tag.UniqueTagList;
 import seedu.todoList.model.task.*;
 
 /**
@@ -30,10 +28,10 @@ public class AddCommand extends Command {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String name, String startTime, String endTime)
+    public AddCommand(String todo, String startTime, String endTime)
             throws IllegalValueException {
         this.toAdd = new Task(
-                new Name(name),
+                new Todo(todo),
                 new StartTime(startTime),
                 new EndTime(endTime)
         );

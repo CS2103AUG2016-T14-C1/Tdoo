@@ -1,6 +1,5 @@
 package seedu.todoList.model.task;
 
-import seedu.todoList.model.tag.UniqueTagList;
 import seedu.todoList.commons.util.CollectionUtil;
 
 import java.util.Objects;
@@ -12,16 +11,16 @@ import java.util.Objects;
  */
 public class Task implements ReadOnlyTask {
 
-    private Name name;
+    private Todo todo;
     private StartTime startTime;
     private EndTime endTime;
 
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, StartTime startTime, EndTime endTime) {
-        assert !CollectionUtil.isAnyNull(name, startTime, endTime);
-        this.name = name;
+    public Task(Todo todo, StartTime startTime, EndTime endTime) {
+        assert !CollectionUtil.isAnyNull(todo, startTime, endTime);
+        this.todo = todo;
         this.startTime = startTime;
         this.endTime = endTime;
     }
@@ -30,13 +29,14 @@ public class Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getStartTime(), source.getEndTime());
+        this(source.getTodo(), source.getStartTime(), source.getEndTime());
+    }
+    
+    @Override
+    public Todo getTodo() {
+        return todo;
     }
 
-    @Override
-    public Name getName() {
-        return name;
-    }
 
     @Override
     public StartTime getStartTime() {
@@ -60,15 +60,5 @@ public class Task implements ReadOnlyTask {
         return getAsText();
     }
 
-	public void setTags(UniqueTagList uniqueTagList) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public Todo getTodo() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 }
