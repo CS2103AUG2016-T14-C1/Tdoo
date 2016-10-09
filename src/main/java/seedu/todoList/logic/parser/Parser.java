@@ -27,8 +27,14 @@ public class Parser {
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
 
     private static final Pattern task_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<name>[^/]+)"
+            Pattern.compile("(?<todo>[^/]+)"
                     + " (?<isPriorityPrivate>p?)p/(?<priority>[^/]+)"
+                    + " (?<isStartTimePrivate>p?)s/(?<startTime>[^/]+)"
+                    + " (?<isEndTimePrivate>p?)e/(?<endTime>[^/]+)");
+    
+    private static final Pattern event_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
+            Pattern.compile("(?<todo>[^/]+)"
+                    + " (?<isDatePrivate>p?)d/(?<date>[^/]+)"
                     + " (?<isStartTimePrivate>p?)s/(?<startTime>[^/]+)"
                     + " (?<isEndTimePrivate>p?)e/(?<endTime>[^/]+)");
 
@@ -96,7 +102,7 @@ public class Parser {
         }
         try {
             return new AddTaskCommand(
-                    matcher.group("name"),
+                    matcher.group("todo"),
                     matcher.group("priority"),
                     matcher.group("startTime"),
                     matcher.group("endTime")
@@ -113,15 +119,15 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareAddEvent(String args){
-        final Matcher matcher = task_DATA_ARGS_FORMAT.matcher(args.trim());
+        final Matcher matcher = event_DATA_ARGS_FORMAT.matcher(args.trim());
         // Validate arg string format
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddEventCommand.MESSAGE_USAGE));
         }
         try {
             return new AddEventCommand(
-                    matcher.group("name"),
-                    matcher.group("priority"),
+                    matcher.group("todo"),
+                    matcher.group("date"),
                     matcher.group("startTime"),
                     matcher.group("endTime")
             );

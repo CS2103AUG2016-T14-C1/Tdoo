@@ -11,8 +11,8 @@ public class AddEventCommand extends Command {
     public static final String COMMAND_WORD_EVENT = "add_event";
     public static final String MESSAGE_USAGE = COMMAND_WORD_EVENT + ": Adds an event to Tdoo. "
             + "Parameters: EVENT_NAME d/DATE s/START_TIME e/END_TIME\n"
-            + "Example: " + COMMAND_WORD_EVENT + " Tim's birthday party d/25-12-2016 s/1400 e/1600\n"
-            + "Example: " + COMMAND_WORD_EVENT + " Assignment 3 deadline d/25-12-2016 s/1600 e/1600";
+            + "Example: " + COMMAND_WORD_EVENT + " Tim's birthday party d/01-12-2016 s/1400 e/1600\n"
+            + "Example: " + COMMAND_WORD_EVENT + " Assignment 3 deadline d/01-12-2016 s/1600 e/1600";
     
     
     public static final String MESSAGE_SUCCESS = "New event added: %1$s";
