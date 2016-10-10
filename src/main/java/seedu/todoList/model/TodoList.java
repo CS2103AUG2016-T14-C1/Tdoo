@@ -32,7 +32,7 @@ public class TodoList implements ReadOnlyTodoList {
     /**
      * tasks and Tags are copied into this TodoList 
      */
-    public TodoList(UniqueTaskList tasks, UniqueTagList tags) {
+    public TodoList(UniqueTaskList tasks) {
         resetData(tasks.getInternalList());
     }
 
