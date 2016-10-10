@@ -9,7 +9,7 @@ import java.util.Objects;
  * Represents a task in the TodoList.
  * Guarantees: details are present and not null, field values are validated.
  */
-public class Task implements ReadOnlyTask {
+public abstract class Task implements ReadOnlyTask {
 
     private Todo todo;
     private StartTime startTime;
