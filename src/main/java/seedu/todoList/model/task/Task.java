@@ -11,41 +11,29 @@ import java.util.Objects;
  */
 public abstract class Task implements ReadOnlyTask {
 
-    private Todo todo;
-    private StartTime startTime;
-    private EndTime endTime;
+    protected String name;
 
     /**
      * Every field must be present and not null.
      */
-    public Task(Todo todo, StartTime startTime, EndTime endTime) {
-        assert !CollectionUtil.isAnyNull(todo, startTime, endTime);
-        this.todo = todo;
-        this.startTime = startTime;
-        this.endTime = endTime;
+    public Task(String name) {
+        assert !CollectionUtil.isAnyNull(name);
+        this.name = name;
     }
 
     /**
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getTodo(), source.getStartTime(), source.getEndTime());
+        this(source.getName());
     }
     
-    @Override
-    public Todo getTodo() {
-        return todo;
+    public Task(){
+        
     }
-
-
-    @Override
-    public StartTime getStartTime() {
-        return startTime;
-    }
-
-    @Override
-    public EndTime getEndTime() {
-        return endTime;
+    
+    public String getName() {
+        return name;
     }
 
     @Override
