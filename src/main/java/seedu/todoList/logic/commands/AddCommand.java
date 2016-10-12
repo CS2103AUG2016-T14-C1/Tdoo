@@ -11,10 +11,10 @@ import seedu.todoList.model.task.*;
  */
 public class AddCommand extends Command {
 
-    public static final String COMMAND_WORD = "add_task";
+    public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the TodoList. "
-            + "Parameters: TASK NAME p/PRIORITY \n"
+            + "Parameters: TASK_NAME p/PRIORITY \n"
             + "Example: " + COMMAND_WORD
             + " Assignment 3 p/1";
 
@@ -28,12 +28,9 @@ public class AddCommand extends Command {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String todo, String priority)
+    public AddCommand(Name name, int priority)
             throws IllegalValueException {
-        this.toAdd = new Task(
-                new Todo(todo),
-                new Priority(priority)
-        );
+        this.toAdd = new Todo(name,priority);
     }
 
     @Override

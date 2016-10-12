@@ -1,6 +1,7 @@
 package seedu.todoList.model.task;
 
 import seedu.todoList.commons.util.CollectionUtil;
+import seedu.todoList.model.task.attributes.Priority;
 
 import java.util.Objects;
 
@@ -11,12 +12,12 @@ import java.util.Objects;
  */
 public abstract class Task implements ReadOnlyTask {
 
-    protected String name;
+    protected Name name;
 
     /**
      * Every field must be present and not null.
      */
-    public Task(String name) {
+    public Task(Name name) {
         assert !CollectionUtil.isAnyNull(name);
         this.name = name;
     }
@@ -24,15 +25,16 @@ public abstract class Task implements ReadOnlyTask {
     /**
      * Copy constructor.
      */
-    public Task(ReadOnlyTask source) {
-        this(source.getName());
-    }
-    
     public Task(){
         
     }
     
-    public String getName() {
+    public Task(ReadOnlyTask source) {
+        this(source.getName());
+    }
+    
+    @Override
+    public Name getName() {
         return name;
     }
 
@@ -47,6 +49,4 @@ public abstract class Task implements ReadOnlyTask {
     public String toString() {
         return getAsText();
     }
-
-
 }

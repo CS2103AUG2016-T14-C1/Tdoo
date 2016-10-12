@@ -28,7 +28,7 @@ public class Parser {
 
     private static final Pattern task_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>[^/]+)"
-                    + " (?<isPriorityPrivate>p?)p/(?<phone>[^/]+)"); // variable number of tags
+                    + " (?<isPriorityPrivate>p?)p/(?<priority>[^/]+)"); // variable number of tags
 
     public Parser() {}
 

@@ -4,6 +4,7 @@ package seedu.todoList.model.task;
 import seedu.todoList.commons.exceptions.IllegalValueException;
 import seedu.todoList.commons.util.CollectionUtil;
 import seedu.todoList.logic.commands.CommandResult;
+import seedu.todoList.model.task.attributes.Date;
 import seedu.todoList.model.task.attributes.Priority;
 
 /**
@@ -11,78 +12,53 @@ import seedu.todoList.model.task.attributes.Priority;
  * Guarantees: immutable; is valid as declared in {@link #isValidTodo(String)}
  */
 public class Todo extends Task {
-
-    public static final String MESSAGE_Todo_CONSTRAINTS = "task Todoes can be in any format";
-    public static final String Todo_VALIDATION_REGEX = ".+";
     
     public static final String MESSAGE_Priority_CONSTRAINTS = "Todo priority index should be a positive integer from index 0";
-    public static final String PRIORITY_VALIDATION_REGEX = "[\\p{Digit}]+";
+    public static final String Priority_VALIDATION_REGEX = "[\\p{Digit}]+";
     
-    protected String todo;
-    protected String priority;
+    private int priority;
+    private Name name;
     /**
      * Validates given Todo.
      *
      * @throws IllegalValueException if given Todo string is invalid.
      */
 
-    public Todo(String todo, String priority) throws IllegalValueException {
-        assert !CollectionUtil.isAnyNull(todo, priority);
-        todo = todo.trim();
-        priority = priority.trim();
-        if (!isValidTodo(todo)) {
-            throw new IllegalValueException(MESSAGE_Todo_CONSTRAINTS);
-        }else if (!isValidPriority(priority)) {
+    public Todo(Name name, int priority) throws IllegalValueException {
+        assert !CollectionUtil.isAnyNull(priority);
+        if (!isValidPriority(Integer.toString(priority))) {
             throw new IllegalValueException(MESSAGE_Priority_CONSTRAINTS);
         }
-        this.todo = todo;
+        this.name = name;
         this.priority = priority;
-        
+       
     }  
     
     public Todo(ReadOnlyTask source) throws IllegalValueException{
-        this(source.getTodo(), source.getPriority());
-    }
-    
-    /**
-     * Returns true if a given string is a valid task name.
-     */
-    public static boolean isValidTodo(String todo) {
-        return todo.matches(Todo_VALIDATION_REGEX);
+        this(source.getName(), source.getPriority());
     }
     
     /**
      * Returns true if a given string is a valid task priority.
      */
     public static boolean isValidPriority(String priority) {
-        return priority.matches(Todo_VALIDATION_REGEX);
-    }
-
-    @Override
-    public String toString() {
-        return todo;
+        return priority.matches(Priority_VALIDATION_REGEX);
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Todo // instanceof handles nulls
-                && this.todo.equals(((Todo) other).todo)); // state check
+                && this.name.equals(((Todo) other).name)); // state check
     }
 
     @Override
     public int hashCode() {
-        return todo.hashCode();
-    }
-    
-    @Override
-    public String getTodo() {
-        return todo;
+        return name.hashCode();
     }
 
-
     @Override
-    public String getPriority() {
+    public int getPriority() {
         return priority;
     }
 

@@ -8,20 +8,23 @@ import seedu.todoList.model.task.ReadOnlyTask;
 
 public class TaskCard extends UiPart{
 
-    private static final String FXML = "taskListCard.fxml";
+    private static final String FXML = "TaskListCard.fxml";
 
     @FXML
     private HBox cardPane;
     @FXML
     private Label id;
     @FXML
-    private Label phone;
-    @FXML
     private Label Todo;
     @FXML
-    private Label email;
+    private Label Priority;
     @FXML
-    private Label tags;
+    private Label Date;
+    @FXML
+    private Label StartTime;
+    @FXML
+    private Label EndTime;
+
 
     private ReadOnlyTask task;
     private int displayedIndex;
@@ -40,7 +43,8 @@ public class TaskCard extends UiPart{
     @FXML
     public void initialize() {
         id.setText(displayedIndex + ". ");
-        Todo.setText(task.getTodo().value);
+        Todo.setText(task.getTodo().todo);
+        Priority.setText(task.getPriority().priority);
     }
 
     public HBox getLayout() {

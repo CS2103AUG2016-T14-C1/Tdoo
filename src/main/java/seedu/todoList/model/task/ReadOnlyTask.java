@@ -8,9 +8,8 @@ import seedu.todoList.model.task.attributes.Priority;
  */
 public interface ReadOnlyTask {
 
-    String getTodo();
-    String getPriority();
-    String getName();
+    Name getName();
+    int getPriority();
     StartTime getStartTime();
     EndTime getEndTime();
 
@@ -20,7 +19,7 @@ public interface ReadOnlyTask {
     default boolean isSameStateAs(ReadOnlyTask other) {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
-                && other.getTodo().equals(this.getTodo()));// state checks here onwards
+                && other.getName().equals(this.getName()));// state checks here onwards
     }
 
     /**
@@ -29,7 +28,7 @@ public interface ReadOnlyTask {
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
         builder.append(" Todo: ")
-                .append(getTodo());
+                .append(getName());
         return builder.toString();
     }
 
