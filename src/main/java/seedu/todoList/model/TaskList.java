@@ -25,14 +25,14 @@ public class TaskList implements ReadOnlyTodoList {
     /**
      * tasks and Tags are copied into this TodoList 
      */
-    public TodoList(ReadOnlyTodoList toBeCopied) {
+    public void TodoList(ReadOnlyTodoList toBeCopied) {
         this(toBeCopied.getUniqueTaskList());
     }
 
     /**
      * tasks and Tags are copied into this TodoList 
      */
-    public TodoList(UniqueTaskList tasks) {
+    public void TodoList(UniqueTaskList tasks) {
         resetData(tasks.getInternalList());
     }
 

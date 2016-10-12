@@ -2,8 +2,8 @@ package seedu.todoList.storage;
 
 import seedu.todoList.model.task.*;
 import seedu.todoList.model.task.attributes.Name;
-import seedu.todoList.model.tag.Tag;
-import seedu.todoList.model.tag.UniqueTagList;
+import seedu.todoList.model.task.attributes.StartTime;
+import seedu.todoList.model.task.attributes.EndTime;
 import seedu.todoList.commons.exceptions.IllegalValueException;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -16,6 +16,12 @@ import java.util.List;
  */
 public class XmlAdaptedTodo extends XmlAdaptedTask {
     
+	@XmlElement(required = true)
+    Name name;
+	@XmlElement(required = true)
+    StartTime startTime;
+	@XmlElement(required = true)
+    EndTime endTime;
     @XmlElement(required = true)
     private String priority;
 
