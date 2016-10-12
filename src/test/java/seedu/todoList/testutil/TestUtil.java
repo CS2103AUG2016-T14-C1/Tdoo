@@ -18,6 +18,7 @@ import seedu.todoList.model.TaskList;
 import seedu.todoList.model.tag.Tag;
 import seedu.todoList.model.tag.UniqueTagList;
 import seedu.todoList.model.task.*;
+import seedu.todoList.model.task.attributes.Name;
 import seedu.todoList.storage.XmlSerializableTaskList;
 
 import org.loadui.testfx.GuiTest;

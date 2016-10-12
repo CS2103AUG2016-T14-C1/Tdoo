@@ -1,4 +1,4 @@
-package seedu.todoList.model.task;
+package seedu.todoList.model.task.attributes;
 
 import seedu.todoList.commons.exceptions.IllegalValueException;
 

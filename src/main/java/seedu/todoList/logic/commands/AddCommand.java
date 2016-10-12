@@ -5,6 +5,7 @@ import java.util.Set;
 
 import seedu.todoList.commons.exceptions.IllegalValueException;
 import seedu.todoList.model.task.*;
+import seedu.todoList.model.task.attributes.StartTime;
 
 /**
  * Adds a task to the TodoList.
