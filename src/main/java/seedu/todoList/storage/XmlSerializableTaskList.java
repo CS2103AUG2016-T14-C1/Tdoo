@@ -21,10 +21,6 @@ public class XmlSerializableTaskList implements ReadOnlyTodoList {
 
     @XmlElement
     private List<XmlAdaptedTask> tasks;
-<<<<<<< HEAD:src/main/java/seedu/todoList/storage/XmlSerializableTodoList.java
-
-=======
->>>>>>> 599478dd0130f46dae3a83f7da3f6c2fd212f22d:src/main/java/seedu/todoList/storage/XmlSerializableTaskList.java
 
     {
         tasks = new ArrayList<>();

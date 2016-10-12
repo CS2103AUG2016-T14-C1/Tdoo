@@ -25,25 +25,15 @@ public class TaskList implements ReadOnlyTodoList {
     /**
      * tasks and Tags are copied into this TodoList 
      */
-<<<<<<< HEAD:src/main/java/seedu/todoList/model/TodoList.java
     public TodoList(ReadOnlyTodoList toBeCopied) {
         this(toBeCopied.getUniqueTaskList());
-=======
-    public TaskList(ReadOnlyTodoList toBeCopied) {
-        this(toBeCopied.getUniqueTaskList(), toBeCopied.getUniqueTagList());
->>>>>>> 599478dd0130f46dae3a83f7da3f6c2fd212f22d:src/main/java/seedu/todoList/model/TaskList.java
     }
 
     /**
      * tasks and Tags are copied into this TodoList 
      */
-<<<<<<< HEAD:src/main/java/seedu/todoList/model/TodoList.java
     public TodoList(UniqueTaskList tasks) {
         resetData(tasks.getInternalList());
-=======
-    public TaskList(UniqueTaskList tasks, UniqueTagList tags) {
-        resetData(tasks.getInternalList(), tags.getInternalList());
->>>>>>> 599478dd0130f46dae3a83f7da3f6c2fd212f22d:src/main/java/seedu/todoList/model/TaskList.java
     }
 
     public static ReadOnlyTodoList getEmptyTodoList() {
@@ -110,15 +100,9 @@ public class TaskList implements ReadOnlyTodoList {
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-<<<<<<< HEAD:src/main/java/seedu/todoList/model/TodoList.java
+        return other == this // short circuit if same objectW
                 || (other instanceof TodoList // instanceof handles nulls
                 && this.tasks.equals(((TodoList) other).tasks));
-=======
-                || (other instanceof TaskList // instanceof handles nulls
-                && this.tasks.equals(((TaskList) other).tasks)
-                && this.tags.equals(((TaskList) other).tags));
->>>>>>> 599478dd0130f46dae3a83f7da3f6c2fd212f22d:src/main/java/seedu/todoList/model/TaskList.java
     }
 
     @Override

@@ -16,8 +16,4 @@ public interface ReadOnlyTodoList {
      * Returns an unmodifiable view of tasks list
      */
     List<ReadOnlyTask> gettaskList();
-<<<<<<< HEAD
-
-=======
->>>>>>> 599478dd0130f46dae3a83f7da3f6c2fd212f22d
 }
