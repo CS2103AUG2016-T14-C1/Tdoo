@@ -4,7 +4,7 @@ import seedu.todoList.model.task.attributes.Date;
 import seedu.todoList.model.task.attributes.StartTime;
 import seedu.todoList.model.task.attributes.EndTime;
 
-public class Event {
+public class Event extends Task {
 
 	Date date;
 	StartTime startTime;
