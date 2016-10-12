@@ -14,14 +14,17 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * An Immutable TodoList that is serializable to XML format
+ * An Immutable TaskList that is serializable to XML format
  */
-@XmlRootElement(name = "TodoList ")
-public class XmlSerializableTodoList implements ReadOnlyTodoList {
+@XmlRootElement(name = "TaskList")
+public class XmlSerializableTaskList implements ReadOnlyTodoList {
 
     @XmlElement
     private List<XmlAdaptedTask> tasks;
+<<<<<<< HEAD:src/main/java/seedu/todoList/storage/XmlSerializableTodoList.java
 
+=======
+>>>>>>> 599478dd0130f46dae3a83f7da3f6c2fd212f22d:src/main/java/seedu/todoList/storage/XmlSerializableTaskList.java
 
     {
         tasks = new ArrayList<>();
@@ -30,12 +33,12 @@ public class XmlSerializableTodoList implements ReadOnlyTodoList {
     /**
      * Empty constructor required for marshalling
      */
-    public XmlSerializableTodoList() {}
+    public XmlSerializableTaskList() {}
 
     /**
      * Conversion
      */
-    public XmlSerializableTodoList(ReadOnlyTodoList src) {
+    public XmlSerializableTaskList(ReadOnlyTodoList src) {
         tasks.addAll(src.gettaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
     }
 
