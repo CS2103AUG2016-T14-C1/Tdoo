@@ -1,6 +1,7 @@
 package seedu.todoList.logic.parser;
 
 import seedu.todoList.logic.commands.*;
+import seedu.todoList.model.task.Name;
 import seedu.todoList.commons.exceptions.IllegalValueException;
 import seedu.todoList.commons.util.StringUtil;
 
@@ -91,8 +92,8 @@ public class Parser {
         }
         try {
             return new AddCommand(
-                    matcher.group("name"),
-                    matcher.group("priority")
+                    new Name(matcher.group("name")),
+                    Integer.parseInt(matcher.group("priority"))
             );
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());

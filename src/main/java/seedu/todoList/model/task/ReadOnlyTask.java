@@ -19,7 +19,8 @@ public interface ReadOnlyTask {
     default boolean isSameStateAs(ReadOnlyTask other) {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
-                && other.getName().equals(this.getName()));// state checks here onwards
+                && other.getName().equals(this.getName())// state checks here onwards
+                && Integer.toString(other.getPriority()).equals(this.getPriority()));
     }
 
     /**
@@ -28,7 +29,9 @@ public interface ReadOnlyTask {
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
         builder.append(" Todo: ")
-                .append(getName());
+                .append(getName())
+                .append("\nPriority")
+                .append(getPriority());
         return builder.toString();
     }
 
