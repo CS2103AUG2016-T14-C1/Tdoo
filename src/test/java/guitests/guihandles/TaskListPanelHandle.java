@@ -6,10 +6,13 @@ import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
-import seedu.todoList.TestApp;
-import seedu.todoList.model.task.ReadOnlyTask;
-import seedu.todoList.model.task.Task;
-import seedu.todoList.testutil.TestUtil;
+
+import seedu.Tdoo.TestApp;
+import seedu.Tdoo.commons.core.LogsCenter;
+import seedu.Tdoo.model.task.ReadOnlyTask;
+import seedu.Tdoo.model.task.Todo;
+import seedu.Tdoo.testutil.TestUtil;
+
 
 import java.util.List;
 import java.util.Optional;
@@ -20,12 +23,13 @@ import static org.junit.Assert.assertTrue;
 /**
  * Provides a handle for the panel containing the task list.
  */
+//@@author A0132157M reused
 public class TaskListPanelHandle extends GuiHandle {
 
     public static final int NOT_FOUND = -1;
-    public static final String CARD_PANE_ID = "#cardPane";
+    public static final String CARD_PANE_ID = "#name";
 
-    private static final String task_LIST_VIEW_ID = "#taskListView";
+    private static final String task_LIST_VIEW_ID = "#todoListView";
 
     public TaskListPanelHandle(GuiRobot guiRobot, Stage primaryStage) {
         super(guiRobot, primaryStage, TestApp.APP_TITLE);
@@ -38,6 +42,7 @@ public class TaskListPanelHandle extends GuiHandle {
 
     public ListView<ReadOnlyTask> getListView() {
         return (ListView<ReadOnlyTask>) getNode(task_LIST_VIEW_ID);
+        
     }
 
     /**
@@ -45,7 +50,7 @@ public class TaskListPanelHandle extends GuiHandle {
      * @param tasks A list of task in the correct order.
      */
     public boolean isListMatching(ReadOnlyTask... tasks) {
-        return this.isListMatching(0, tasks);
+        return this.isListMatching(0, tasks); //something wrong, always return false!!!
     }
     
     /**
@@ -69,7 +74,7 @@ public class TaskListPanelHandle extends GuiHandle {
 
         // Return false if any of the tasks doesn't match
         for (int i = 0; i < tasks.length; i++) {
-            if (!tasksInList.get(startPosition + i).getName().fullName.equals(tasks[i].getName().fullName)){
+            if (!tasksInList.get(startPosition + i).getName().name.equals(tasks[i].getName().name)){
                 return false;
             }
         }
@@ -85,8 +90,8 @@ public class TaskListPanelHandle extends GuiHandle {
     public boolean isListMatching(int startPosition, ReadOnlyTask... tasks) throws IllegalArgumentException {
         if (tasks.length + startPosition != getListView().getItems().size()) {
             throw new IllegalArgumentException("List size mismatched\n" +
-                    "Expected " + (getListView().getItems().size() - 1) + " tasks");
-        }
+                    "Expected " + tasks.length + " " + (getListView().getItems().size()) + " tasks");
+        } 
         assertTrue(this.containsInOrder(startPosition, tasks));
         for (int i = 0; i < tasks.length; i++) {
             final int scrollTo = i + startPosition;
@@ -99,12 +104,16 @@ public class TaskListPanelHandle extends GuiHandle {
         return true;
     }
 
-
+    //@@author A0132157M
     public TaskCardHandle navigateTotask(String name) {
+        LogsCenter.getLogger(TaskListPanelHandle.class).info("task.length add command: " + name.toString());
+
         guiRobot.sleep(500); //Allow a bit of time for the list to be updated
-        final Optional<ReadOnlyTask> task = getListView().getItems().stream().filter(p -> p.getName().fullName.equals(name)).findAny();
+        final Optional<ReadOnlyTask> task = getListView().getItems().stream().filter(p -> p.getName().name.equals(name)).findAny();
+        LogsCenter.getLogger(TaskListPanelHandle.class).info("task: " + task.toString());
+
         if (!task.isPresent()) {
-            throw new IllegalStateException("Name not found: " + name);
+            throw new IllegalStateException("Todo not found: " + name);
         }
 
         return navigateTotask(task.get());
@@ -114,13 +123,13 @@ public class TaskListPanelHandle extends GuiHandle {
      * Navigates the listview to display and select the task.
      */
     public TaskCardHandle navigateTotask(ReadOnlyTask task) {
-        int index = gettaskIndex(task);
+        int index = gettaskIndex(task); //SOmething wrong. Always return 0
 
         guiRobot.interact(() -> {
             getListView().scrollTo(index);
             guiRobot.sleep(150);
             getListView().getSelectionModel().select(index);
-        });
+        }); 
         guiRobot.sleep(100);
         return getTaskCardHandle(task);
     }
@@ -146,8 +155,8 @@ public class TaskListPanelHandle extends GuiHandle {
         return getListView().getItems().get(index);
     }
 
-    public TaskCardHandle getTaskCardHandle(int index) {
-        return getTaskCardHandle(new Task(getListView().getItems().get(index)));
+    public TaskCardHandle getTaskCardHandle(int task) {
+        return getTaskCardHandle(new Todo(getListView().getItems().get(task)));
     }
 
     public TaskCardHandle getTaskCardHandle(ReadOnlyTask task) {
@@ -166,7 +175,7 @@ public class TaskListPanelHandle extends GuiHandle {
         return guiRobot.lookup(CARD_PANE_ID).queryAll();
     }
 
-    public int getNumberOfPeople() {
+    public int getNumberOfTasks() {
         return getListView().getItems().size();
     }
 }

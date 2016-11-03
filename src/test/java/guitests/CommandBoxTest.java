@@ -2,13 +2,19 @@ package guitests;
 
 import org.junit.Test;
 
+import seedu.Tdoo.commons.exceptions.IllegalValueException;
+import seedu.Tdoo.testutil.TaskBuilder;
+import seedu.Tdoo.testutil.TestTask;
+
 import static org.junit.Assert.assertEquals;
 
-public class CommandBoxTest extends TodoListGuiTest {
+public class CommandBoxTest extends ListGuiTest {
 
     @Test
-    public void commandBox_commandSucceeds_textCleared() {
-        commandBox.runCommand(td.benson.getAddCommand());
+    public void commandBox_commandSucceeds_textCleared() throws IllegalValueException {
+        TestTask taskToAdd = new TaskBuilder().withName("TODO 123").withStartDate("28-11-2016").withEndDate("29-11-2016").withPriority("1").withDone("false").build();
+
+        commandBox.runCommand(taskToAdd.getAddCommand());
         assertEquals(commandBox.getCommandInput(), "");
     }
 
