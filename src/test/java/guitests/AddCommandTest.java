@@ -85,30 +85,26 @@ public class AddCommandTest extends ListGuiTest {
 		assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
 		assertTrue(deadlineListPanel.isListMatching(currentDeadlineList));
 
-		// add to empty list
-		// taskToAdd = new TaskBuilder().withName("TODO
-		// 123").withStartDate("28-11-2016").withEndDate("29-11-2016").withPriority("2").withDone("false").build();
-		// commandBox.runCommand(taskToAdd.getAddCommand());
-		// assertAddEventSuccess(ed.e1);
-
 		// invalid command
 		commandBox.runCommand("adds assignment 66");
 		assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
 	}
 	// =========================================================================================================================
-
+	
+	//@@author A0132157M
 	private void addAllDummyTodoTasks(TestTask... currentList) {
 		for (TestTask t : currentList) {
 			commandBox.runCommand(t.getAddCommand());
 		}
 	}
-
+	
+	//@@author A0132157M
 	private void addAllDummyEventTasks(TestEvent... currentList) {
 		for (TestEvent t : currentList) {
 			commandBox.runCommand(t.getAddCommand());
 		}
 	}
-
+	//@@author A0132157M reused
 	private void assertAddSuccess(TestTask taskToAdd, TestTask... currentList) {
 		addAllDummyTodoTasks(currentList);
 		commandBox.runCommand(taskToAdd.getAddCommand());

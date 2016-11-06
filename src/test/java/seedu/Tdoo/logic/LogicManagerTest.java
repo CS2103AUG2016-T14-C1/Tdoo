@@ -93,25 +93,9 @@ public class LogicManagerTest {
 				new StorageManager(tempTodoListFile, tempEventListFile, tempDeadlineListFile, tempPreferencesFile));
 		EventsCenter.getInstance().registerHandler(this);
 
-		latestSavedTodoList = new TaskList(model.getTodoList()); // last saved
-																	// assumed
-																	// to be up
-																	// to date
-																	// before.
-		latestSavedEventList = new TaskList(model.getEventList()); // last saved
-																	// assumed
-																	// to be up
-																	// to date
-																	// before.
-		latestSavedDeadlineList = new TaskList(model.getDeadlineList()); // last
-																			// saved
-																			// assumed
-																			// to
-																			// be
-																			// up
-																			// to
-																			// date
-																			// before.
+		latestSavedTodoList = new TaskList(model.getTodoList()); // last saved assume to be up-to-date											
+		latestSavedEventList = new TaskList(model.getEventList()); // last saved assume to be up-to-date
+		latestSavedDeadlineList = new TaskList(model.getDeadlineList()); // last saved assume to be up-to-date
 		helpShown = false;
 		targetedJumpIndex = -1; // non yet
 	}
@@ -208,11 +192,11 @@ public class LogicManagerTest {
 	@Test
 	// @@author A0132157M reused
 	public void execute_add_invalidtaskData() throws Exception {
-		assertCommandBehavior("add todo[]\\[;] /11-12-2016 e/valid@e.mail a/valid, Todo",
+		assertCommandBehavior("add todo[]\\[;] /11-12-2016 l a/valid, Todo",
 				"Invalid command format! \n" + AddCommand.MESSAGE_USAGE);
-		assertCommandBehavior("add event from/33-12-2016 Name p/not_numbers e/valid@e.mail a/valid, Todo",
+		assertCommandBehavior("add event from/33-12-2016 Name p/not_numbers l a/valid, Todo",
 				"Invalid command format! \n" + AddCommand.MESSAGE_USAGE);
-		assertCommandBehavior("add deadline Name p/12345 e/notAnEmail a/valid, Todo",
+		assertCommandBehavior("add deadline Name p/12345  a/valid, Todo",
 				"Invalid command format! \n" + AddCommand.MESSAGE_USAGE);
 
 	}
@@ -270,50 +254,7 @@ public class LogicManagerTest {
 				expectedAB.getTaskList());
 	}
 
-	// @Test
-	// public void execute_addTodoDuplicate_notAllowed() throws Exception {
-	// // setup expectations
-	// TestDataHelper helper = new TestDataHelper();
-	//
-	// Todo toBeAdded = helper.todoHelper();
-	// TaskList expectedAB = new TaskList();
-	//
-	// expectedAB.addTask(toBeAdded);
-	//
-	// // setup starting state
-	// model.addTask(toBeAdded); // task already in internal TodoList
-	// //LogsCenter.getLogger(LogicManagerTest.class).info("task of currentlist:
-	// " + toBeAdded.toString());
-	//
-	//
-	// // execute command and verify result
-	// assertCommandBehavior(
-	// helper.generateAddTodoCommand(toBeAdded),
-	// AddCommand.MESSAGE_DUPLICATE_TASK,
-	// expectedAB,
-	// expectedAB.getTaskList());
-	// }
-
-	// @Test
-	// //@@author A0132157M
-	// public void execute_addEventDuplicate_notAllowed() throws Exception {
-	// // setup expectations
-	// TestDataHelper helper = new TestDataHelper();
-	//
-	// Event toBeAdded = helper.eventHelper();
-	// TaskList expectedAB = new TaskList();
-	// expectedAB.addTask(toBeAdded);
-	//
-	// // setup starting state
-	// model.addTask(toBeAdded); // task already in internal TodoList
-	//
-	// // execute command and verify result
-	// assertCommandBehavior(
-	// helper.generateAddEventCommand(toBeAdded),
-	// AddCommand.MESSAGE_DUPLICATE_TASK,
-	// expectedAB,
-	// expectedAB.getTaskList());
-	// }
+	
 
 	@Test
 	// @@author A0132157M
@@ -348,7 +289,6 @@ public class LogicManagerTest {
 
 		// prepare TodoList state
 		helper.addToModel(model, threetasks);
-
 		assertCommandBehavior("list todo", ListCommand.TODO_MESSAGE_SUCCESS, expectedAB, expectedList);
 	}
 
@@ -364,9 +304,8 @@ public class LogicManagerTest {
 		TaskList expectedAB = helper.generateTodoList(threetasks);
 		List<? extends ReadOnlyTask> expectedList = expectedAB.getTaskList();
 
-		// prepare TodoList state
+		// prepare EventList state
 		helper.addToModel(model, threetasks);
-
 		assertCommandBehavior("list event", ListCommand.EVENT_MESSAGE_SUCCESS, expectedAB, expectedList);
 	}
 
@@ -382,9 +321,8 @@ public class LogicManagerTest {
 		TaskList expectedAB = helper.generateTodoList(threetasks);
 		List<? extends ReadOnlyTask> expectedList = expectedAB.getTaskList();
 
-		// prepare TodoList state
+		// prepare DeadlineList state
 		helper.addToModel(model, threetasks);
-
 		assertCommandBehavior("list event", ListCommand.EVENT_MESSAGE_SUCCESS, expectedAB, expectedList);
 	}
 
@@ -400,9 +338,8 @@ public class LogicManagerTest {
 		TaskList expectedAB = helper.generateTodoList(threetasks);
 		List<? extends ReadOnlyTask> expectedList = expectedAB.getTaskList();
 
-		// prepare TodoList state
+		// prepare AllList state
 		helper.addToModel(model, threetasks);
-
 		assertCommandBehavior("list all", ListCommand.ALL_MESSAGE_SUCCESS, expectedAB, expectedList);
 	}
 
@@ -417,17 +354,9 @@ public class LogicManagerTest {
 	private void assertIncorrectIndexFormatBehaviorForCommand(String commandWord, String expectedMessage)
 			throws Exception {
 		assertCommandBehavior(commandWord, expectedMessage); // index missing
-		assertCommandBehavior(commandWord + " +1", expectedMessage); // index
-																		// should
-																		// be
-																		// unsigned
-		assertCommandBehavior(commandWord + " -1", expectedMessage); // index
-																		// should
-																		// be
-																		// unsigned
-		assertCommandBehavior(commandWord + " 0", expectedMessage); // index
-																	// cannot be
-																	// 0
+		assertCommandBehavior(commandWord + " +1", expectedMessage); // index should be unsigned													
+		assertCommandBehavior(commandWord + " -1", expectedMessage); // index should be unsigned
+		assertCommandBehavior(commandWord + " 0", expectedMessage); // index cannot be 0
 		assertCommandBehavior(commandWord + " not_a_number", expectedMessage);
 	}
 
@@ -448,40 +377,13 @@ public class LogicManagerTest {
 		Task pTarget3 = helper.generatetask("todo 1");
 		List<Task> taskList = helper.generatetaskList(pTarget1, pTarget2, pTarget3);
 
-		// set AB state to 2 tasks
+		// set AB state
 		model.resetTodoListData(new TaskList());
 		for (Task p : taskList) {
 			model.addTask(p);
 		}
-
 		assertCommandBehavior(commandWord, expectedMessage, model.getTodoList(), taskList);
 	}
-
-	/*
-	 * @Test public void execute_selectInvalidArgsFormat_errorMessageShown()
-	 * throws Exception { String expectedMessage =
-	 * String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-	 * SelectCommand.MESSAGE_USAGE);
-	 * assertIncorrectIndexFormatBehaviorForCommand("select", expectedMessage);
-	 * }
-	 */
-
-	/*
-	 * @Test public void execute_selectIndexNotFound_errorMessageShown() throws
-	 * Exception { assertIndexNotFoundBehaviorForCommand("select"); }
-	 * 
-	 * @Test public void execute_select_jumpsToCorrecttask() throws Exception {
-	 * TestDataHelper helper = new TestDataHelper(); List<Task> threetasks =
-	 * helper.generatetaskList(3);
-	 * 
-	 * TaskList expectedAB = helper.generateTodoList(threetasks);
-	 * helper.addToModel(model, threetasks);
-	 * 
-	 * assertCommandBehavior("select 2",
-	 * String.format(SelectCommand.MESSAGE_SELECT_TASK_SUCCESS, 2), expectedAB,
-	 * expectedAB.getTaskList()); assertEquals(1, targetedJumpIndex);
-	 * assertEquals(model.getFilteredTodoList().get(1), threetasks.get(1)); }
-	 */
 
 	@Test
 	public void execute_deleteInvalidArgsFormat_errorMessageShown() throws Exception {
@@ -498,7 +400,6 @@ public class LogicManagerTest {
 	@Test
 	// @@author A0132157M reused
 	public void execute_delete_removesCorrectTodo() throws Exception {
-		String expectedMessage = MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
 		TestDataHelper helper = new TestDataHelper();
 		Task pTarget1 = helper.generatetask("todo 2");
 		Task pTarget2 = helper.generatetask("todo 3");
@@ -510,7 +411,6 @@ public class LogicManagerTest {
 		helper.addToModel(model, fourtasks);
 
 		expectedAB.removeTask(fourtasks.get(1));
-
 		assertCommandBehavior("delete todo 2",
 				String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, fourtasks.get(1)), expectedAB,
 				expectedAB.getTaskList());
@@ -519,7 +419,6 @@ public class LogicManagerTest {
 	@Test
 	// @@author A0132157M
 	public void execute_delete_removesCorrectEvent() throws Exception {
-		String expectedMessage = MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
 		TestDataHelper helper = new TestDataHelper();
 		Task pTarget1 = helper.generateEvents("todo 2");
 		Task pTarget2 = helper.generateEvents("todo 3");
@@ -531,7 +430,6 @@ public class LogicManagerTest {
 		helper.addToModel(model, fourtasks);
 
 		expectedAB.removeTask(fourtasks.get(1));
-
 		assertCommandBehavior("delete event 2",
 				String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, fourtasks.get(1)), expectedAB,
 				expectedAB.getTaskList());
@@ -540,7 +438,6 @@ public class LogicManagerTest {
 	@Test
 	// @@author A0132157M
 	public void execute_delete_removesCorrectDeadline() throws Exception {
-		String expectedMessage = MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
 		TestDataHelper helper = new TestDataHelper();
 		Task pTarget1 = helper.generateDeadline("todo 2");
 		Task pTarget2 = helper.generateDeadline("todo 3");
@@ -552,7 +449,6 @@ public class LogicManagerTest {
 		helper.addToModel(model, fourtasks);
 
 		expectedAB.removeTask(fourtasks.get(1));
-
 		assertCommandBehavior("delete deadline 2",
 				String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, fourtasks.get(1)), expectedAB,
 				expectedAB.getTaskList());
@@ -798,10 +694,9 @@ public class LogicManagerTest {
 			StringBuffer cmd = new StringBuffer();
 			cmd.append("add ");
 			cmd.append(p.getName().name);
-			cmd.append(" from/01st January 2017");// .append(p.getStartDate().date);
-			cmd.append(" to/02nd January 2017");// .append(p.getEndDate().endDate);
-			cmd.append(" p/1");// .append(p.getPriority().priority);
-			// cmd.append("false");
+			cmd.append(" from/01st January 2017");
+			cmd.append(" to/02nd January 2017");
+			cmd.append(" p/1");
 			return cmd.toString();
 		}
 
@@ -811,11 +706,10 @@ public class LogicManagerTest {
 
 			cmd.append("add ");
 			cmd.append(p.getName().name);
-			cmd.append(" from/01-11-2016");// .append(p.getStartDate().date);
-			cmd.append(" to/02-11-2016");// .append(p.getEndDate().endDate);
-			cmd.append(" at/01:00");// .append(p.getStartTime().startTime);
-			cmd.append(" to/02:00");// .append(p.getEndTime().endTime);
-			// cmd.append("false");
+			cmd.append(" from/01-11-2016");
+			cmd.append(" to/02-11-2016");
+			cmd.append(" at/01:00");
+			cmd.append(" to/02:00");
 			return cmd.toString();
 		}
 
@@ -825,9 +719,9 @@ public class LogicManagerTest {
 
 			cmd.append("add ");
 			cmd.append(toBeAdded.getName().name);
-			cmd.append(" on/01-12-2016");// .append(toBeAdded.getDate().date);
-			cmd.append(" at/02:00");// .append(toBeAdded.getEndTime().endTime);
-			// cmd.append("false");
+			cmd.append(" on/01-12-2016");
+			cmd.append(" at/02:00");
+
 			return cmd.toString();
 		}
 

@@ -75,10 +75,8 @@ public class StorageManagerTest {
 	@Test
 	public void TodoListReadSave() throws Exception {
 		TaskList original = new TypicalTestTask().getTypicalTodoList();
-		LogsCenter.getLogger(StorageManagerTest.class).info("XXXXXX: " + original.getTasks());
 		storageManager.saveTodoList(original);
 		ReadOnlyTaskList retrieved = storageManager.readTodoList().get();
-		LogsCenter.getLogger(StorageManagerTest.class).info("gretrieved et(): " + retrieved.toString());
 
 		assertEquals(original, new TaskList(retrieved));
 		// More extensive testing of TodoList saving/reading is done in
@@ -121,6 +119,7 @@ public class StorageManagerTest {
 	}
 
 	@Test
+	// @@author A0132157M reused
 	public void handleTodoListChangedEvent_exceptionThrown_eventRaised() throws IOException, IllegalValueException {
 		// Create a StorageManager while injecting a stub with wrong format that
 		// throws an exception when the save method is called
